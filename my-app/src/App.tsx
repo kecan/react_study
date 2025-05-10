@@ -62,7 +62,7 @@ const QuestionList = () => {
         <button type="submit">Ask</button>
       </form>
       <ul>
-        {data.questions.map((q: any) => (
+        {data?.questions.map((q: any) => (
           <li key={q.id}>
             <strong>Q: {q.question}</strong>
             <p>A: {q.answer}</p>
