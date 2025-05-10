@@ -1,8 +1,15 @@
-import React, { useState } from 'react';
-import { ApolloClient, InMemoryCache, ApolloProvider, useQuery, useMutation, gql } from '@apollo/client';
+import React, { useState } from "react";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  useQuery,
+  useMutation,
+  gql,
+} from "@apollo/client";
 
 // 替换为你的Worker URL
-const WORKER_URL = 'https://my-worker.kecan199411.workers.dev/graphql';
+const WORKER_URL = "https://my-worker.kecan199411.workers.dev/graphql";
 
 const client = new ApolloClient({
   uri: WORKER_URL,
@@ -30,19 +37,16 @@ const ASK_QUESTION = gql`
 `;
 
 const QuestionList = () => {
-  const { loading, error, data } = useQuery(GET_QUESTIONS);
+  const { data } = useQuery(GET_QUESTIONS);
   const [askQuestion] = useMutation(ASK_QUESTION, {
     refetchQueries: [GET_QUESTIONS],
   });
-  const [newQuestion, setNewQuestion] = useState('');
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  const [newQuestion, setNewQuestion] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     askQuestion({ variables: { question: newQuestion } });
-    setNewQuestion('');
+    setNewQuestion("");
   };
 
   return (
